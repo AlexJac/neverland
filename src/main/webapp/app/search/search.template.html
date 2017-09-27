@@ -1,0 +1,66 @@
+<md-content class="md-padding" style="background-color: #d3d3d3; background: #d3d3d3;">
+<div layout="column" style="background-color: #d3d3d3; background: #d3d3d3;">
+  <div flex flex-gt-xs="25" layout="row" style="align-items: center; justify-content: center; align-text: center;">
+    <md-button class="md-raised md-warn"
+    ng-click="$state.go('results',{'startId': $searchCtrl.startLocation.locationId, 'endId': $searchCtrl.endLocation.locationId})">
+      Find Your Trip
+    </md-button>
+  </div>
+    <md-card flex flex-gt-xs="75">
+      <md-card-content>
+    <div layout="column" ng-repeat="location in $searchCtrl.locations | orderBy : 'state'">
+      <div layout="row">
+      <md-button class="md-raised md-accent" ng-click="$searchCtrl.startLocation = location" style="color: white;">
+        Make Origin
+      </md-button>
+      {{location.city}}, {{location.state}}
+    </div>
+  </div>
+
+  <div layout="column" ng-repeat="location in $searchCtrl.locations | orderBy : 'state'">
+    <div layout="row">
+    <md-button class="md-raised md-accent" ng-click="$searchCtrl.endLocation = location" style="color: white;">
+      Make Destination
+    </md-button>
+    {{location.city}}, {{location.state}}
+  </div>
+</div>
+</md-card-content>
+</md-card>
+</div>
+</md-content>
+
+
+
+<!-- <div flex layout="column" layout-padding style="margin: auto;">
+  <md-card flex layout="column" layout padding>
+    <h2 flex style="align-content: center; j">Search for Your Dream Trip Now!<h2>
+      <md-divider></md-divider>
+      <div>
+           <md-input-container>
+            <label>City, State</label>
+          <md-select multiple flex layout-padding ng-model="$searchCtrl.startLocation" placeholder="Select an Origin">
+            <md-option ng-value="startLocation" ng-repeat="location in $searchCtrl.locations | orderBy: 'state'">
+              {{location.city}}, {{location.state}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+</div>
+          <span></span>
+<div>
+          <md-input-container>
+            <label>City, State</label>
+          <md-select multiple flex layout padding ng-model="$searchCtrl.endLocation" placeholder="Select a Destination">
+            <md-option ng-value="endLocation" ng-repeat="location in $searchCtrl.locations | orderBy: 'state'">
+              {{location.city}}, {{location.state}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+</div>
+          <span></span>
+
+<div>
+      <md-button class="md-raised md-primary" ng-click="$searchCtrl.search($searchCtrl.startLocation.locationId, $searchCtrl.endLocation.locationId)">Search</md-button>
+    </div>
+  </md-card>
+  <div> -->

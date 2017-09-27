@@ -1,0 +1,18 @@
+<md-content>
+<div flex layout="column" layout-padding>
+  <p style="color: black;"><b>
+  {{$profileCtrl.user.firstName}}<br>
+  {{$profileCtrl.user.lastName}}<br>
+  {{$profileCtrl.user.username}}<br>
+  {{$profileCtrl.user.userId}}</b></p>
+</div>
+<div>
+  <div ng-repeat="route in $profileCtrl.currentTrips">
+    <div ng-repeat="flight in $profileCtrl.currentTrips.route">
+      {{$profileCtrl.currentTrips.route.flight}}
+    </div>
+    <md-button class="md-raised md-warn" ng-click="$profileCtrl.cancel(route)">
+      Cancel Tickets
+    </md-button>
+  </div>
+</md-content>

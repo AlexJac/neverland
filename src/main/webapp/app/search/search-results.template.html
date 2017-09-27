@@ -1,0 +1,6 @@
+<md-content layout-padding>
+<div flex layout="column" layout-padding>
+  <div ng-repeat="entry in $resultsCtrl.tripsList" flex layout="row" layout-padding>
+    <div flex>{{entry}}</div><div><md-button class="md-raised md-warn" ng-click="$resultsCtrl.book(entry)">Get Tickets</md-button>
+</div>
+</md-content>

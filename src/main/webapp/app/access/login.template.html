@@ -1,0 +1,34 @@
+<div class="space-bot textCenter">
+     <h1>Login</h1>
+    <md-divider></md-divider>
+  <form class="form-login" name="login" novalidate style="margin-top: 10px;">
+    <div class="input-field">
+      <div>
+        <input id="username" type="text" name="string" ng-model="$login.credentials.username" class="validate" required>
+      </div>
+      <div>
+        <label for="username">Username</label>
+      </div>
+    </div>
+    <div>
+    <p class="alert alert-danger" ng-show="form-login.username.$error.username">Your username is invalid.</p>
+  </div>
+    <div class="input-field">
+      <div>
+        <input id="password" type="password" name="password" ng-model="$login.credentials.password" ng-minlength='6' class="validate" required>
+      </div>
+      <div>
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="space-top textCenter">
+    <p class="alert alert-danger" ng-show="form-login.password.$error.minlength || form.password.$invalid">Your password must be at least 6 characters.</p>
+  </div>
+    <div>
+      <md-button class="md-raised md-primary" ng-disabled="form-login.$invalid" ng-click=$login.login()>
+        Login
+      </md-button>
+      <div>{{$login.errorMessage}}</div>
+    </div>
+  </form>
+</div>
