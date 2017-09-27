@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app="neverland" lang="en">
+<head>
+<title>Neverland Airlines</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Angular Material style sheet -->
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="./index.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<script src="./bower_components/angular-bcrypt/dist/dtrw.bcrypt.js"></script>
+<script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
+
+
+<base href="/neverland/" />
+
+<script src="./app/access/access.module.js"></script>
+<script src="./app/access/login.controller.js"></script>
+<script src="./app/access/register.controller.js"></script>
+<script src="./app/access/access.service.js"></script>
+<script src="./app/access/access.routes.js"></script>
+<script src="./app/access/access.config.js"></script>
+
+<script src="./app/user/user.module.js"></script>
+<script src="./app/user/profile.controller.js"></script>
+<script src="./app/user/user.service.js"></script>
+<script src="./app/user/user.routes.js"></script>
+<script src="./app/user/user.config.js"></script>
+
+<script src="./app/search/search.module.js"></script>
+<script src="./app/search/search.controller.js"></script>
+<script src="./app/search/results.controller.js"></script>
+<script src="./app/search/search.service.js"></script>
+<script src="./app/search/search.routes.js"></script>
+<script src="./app/search/search.config.js"></script>
+
+<script src="./notifications/notifications.module.js"></script>
+
+<script src="./app/app.module.js"></script>
+<script src="./app/app.controller.js"></script>
+<script src="./app/NotificationsController.js"></script>
+<script src="./app/app.config.js"></script>
+<script src="./app/app.run.js"></script>
+
+</head>
+
+<body ng-cloak>
+    <md-toolbar class="row md-accent md-hue-3" style="height: 20px;"><span flex></span><h1>Neverland Airlines</h1><span flex></span></md-toolbar>
+    <md-toolbar class="row md-accent" ng-controller="AppController as app" style="box-shadow: 2px 2px 5px #888888; height: 30px;">
+
+        <md-button class="md-raised" aria-label="Trips Management" ng-click="$state.go('profile', {id: app.accessService.currentUser.id})" ng-if="app.accessService.isLoggedIn()">
+          Trips Management
+        </md-button>
+
+        <div class="" ng-controller="AppCtrl" ng-cloak>
+      <md-button class="md-raised" aria-label="question_answer" ng-click="toggleRight()"
+                      ng-if="app.accessService.isLoggedIn()">
+                      Notifications
+      </md-button>
+    </div>
+
+        <span flex></span>
+
+          <md-button class="md-raised" aria-label="Search" ng-click="$state.go('homeSearch')" ng-if="app.accessService.isLoggedIn()">
+            Search
+          </md-button>
+
+        <span flex></span>
+
+        <p ng-if="app.accessService.isLoggedIn()" style="font-size: 12px; float: right; text-align: right; margin-right: 5px; color: white;">
+          Captain on Deck:<br>{{app.accessService.currentUser.firstName}} {{app.accessService.currentUser.lastName}}
+        </p>
+
+        <md-button class="md-raised" aria-label="Login" ng-click="$state.go('login')" ng-if="app.accessService.isLoggedOut()">
+          Login
+        </md-button>
+
+        <md-button class="md-raised" aria-label="Logout" ng-click="app.accessService.logout()" ng-if="app.accessService.isLoggedIn()">
+          Logout
+        </md-button>
+
+        <md-button class="md-raised" aria-label="Register" ng-click="$state.go('register')" ng-if="app.accessService.isLoggedOut()">
+          Register
+        </md-button>
+
+
+
+      </div>
+    </md-toolbar>
+
+<div ui-view>
+</div>
+
+<div>
+  <div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak>
+  <section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools" style="text-transform: none;">Flight Notifications</h1>
+      </md-toolbar>
+      <md-content ng-controller="LeftCtrl as lCtrl" layout-padding>
+            <md-divider></md-divider>
+        <div layout="column" layout-padding>
+        <div ng-controller= "NotificationsController as notCon" flex>
+          <div scroll-glue class= "chatBox" style="width: 18em; min-height: 500 px; word-wrap: break-word;">
+        <ul>
+          <li class ="message" ng-repeat="message in notCon.messages"><p>
+            {{message.content}}</p>
+            <md-divider></md-divider>
+          </li>
+        </ul>
+      </div>
+        </div>
+      </div>
+
+      </md-content>
+    </md-sidenav>
+  </section>
+</div>
+</div>
+
+</body>
+</html>
