@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 17, 2016 5:58:09 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cooksys.neverland.models.Flight" table="flight" catalog="neverland" optimistic-lock="version">
+        <id name="flightId" type="int">
+            <column name="flight_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="locationByDestinationLocation" class="com.cooksys.neverland.models.Location" fetch="select">
+            <column name="destination_location" not-null="true" />
+        </many-to-one>
+        <many-to-one name="locationByOriginLocation" class="com.cooksys.neverland.models.Location" fetch="select">
+            <column name="origin_location" not-null="true" />
+        </many-to-one>
+        <property name="departureDay" type="int">
+            <column name="departure_day" not-null="true" />
+        </property>
+        <property name="arrivalDay" type="int">
+            <column name="arrival_day" not-null="true" />
+        </property>
+        <property name="flightArrived" type="boolean">
+            <column name="flight_arrived" not-null="true" />
+        </property>
+        <property name="flightDelayed" type="boolean">
+            <column name="flight_delayed" not-null="true" />
+        </property>
+        <property name="capacity" type="int">
+            <column name="capacity" not-null="true" />
+        </property>
+        <set name="routes" table="route_flight" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="flight_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.cooksys.neverland.models.Route">
+                <column name="route_id" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

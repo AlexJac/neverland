@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 17, 2016 5:58:09 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cooksys.neverland.models.Location" table="location" catalog="neverland" optimistic-lock="version">
+        <id name="locationId" type="java.lang.Integer">
+            <column name="location_id" />
+            <generator class="identity" />
+        </id>
+        <property name="city" type="string">
+            <column name="city" length="45" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="45" not-null="true" />
+        </property>
+        <set name="flightsForDestinationLocation" table="flight" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="destination_location" not-null="true" />
+            </key>
+            <one-to-many class="com.cooksys.neverland.models.Flight" />
+        </set>
+        <set name="flightsForOriginLocation" table="flight" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="origin_location" not-null="true" />
+            </key>
+            <one-to-many class="com.cooksys.neverland.models.Flight" />
+        </set>
+    </class>
+</hibernate-mapping>

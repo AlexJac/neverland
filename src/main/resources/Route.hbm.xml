@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 17, 2016 5:58:09 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cooksys.neverland.models.Route" table="route" catalog="neverland" optimistic-lock="version">
+        <id name="routeId" type="java.lang.Integer">
+            <column name="route_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="com.cooksys.neverland.models.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <property name="completed" type="boolean">
+            <column name="completed" not-null="true" />
+        </property>
+        <property name="canceled" type="boolean">
+            <column name="canceled" not-null="true" />
+        </property>
+        <set name="flights" table="route_flight" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="route_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.cooksys.neverland.models.Flight">
+                <column name="flight_id" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
